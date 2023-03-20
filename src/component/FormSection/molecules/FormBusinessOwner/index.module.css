@@ -1,0 +1,16 @@
+.name:hover {
+  cursor: pointer;
+}
+.name {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ffffff;
+}
+
+.name.active {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ef476f;
+}

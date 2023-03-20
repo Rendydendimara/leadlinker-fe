@@ -1,0 +1,18 @@
+.title:hover {
+  cursor: pointer;
+}
+.title {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+  text-align: center;
+  color: #919cac;
+}
+
+.title.active {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  text-align: center;
+  color: #ef476f;
+}
