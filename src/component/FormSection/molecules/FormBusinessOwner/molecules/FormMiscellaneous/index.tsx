@@ -1,10 +1,17 @@
 import InputForm from '@/component/InputForm';
 import { Button } from '@chakra-ui/button';
-import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
+import { VStack } from '@chakra-ui/layout';
 
 interface IProps {
   nextSection: () => void;
   finishedSubmit: () => void;
+  burningDesire: string;
+  noOneKnowAboutMe: string;
+  keySuccess: string;
+  onChangeForm: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    fieldName: string
+  ) => void;
 }
 
 export default function FormMiscellaneous(props: IProps) {
@@ -12,6 +19,9 @@ export default function FormMiscellaneous(props: IProps) {
     <>
       <VStack spacing='16px'>
         <InputForm
+          value={props.burningDesire}
+          name='burningDesire'
+          onChange={(e) => props.onChangeForm(e, 'miscellaneous')}
           isRequired={false}
           width='full'
           heigth='40px'
@@ -42,6 +52,9 @@ export default function FormMiscellaneous(props: IProps) {
           }
         />
         <InputForm
+          value={props.noOneKnowAboutMe}
+          name='noOneKnowAboutMe'
+          onChange={(e) => props.onChangeForm(e, 'miscellaneous')}
           isRequired={false}
           width='full'
           heigth='40px'
@@ -114,6 +127,9 @@ export default function FormMiscellaneous(props: IProps) {
           }
         />
         <InputForm
+          value={props.keySuccess}
+          name='keySuccess'
+          onChange={(e) => props.onChangeForm(e, 'miscellaneous')}
           isRequired={false}
           width='full'
           heigth='40px'

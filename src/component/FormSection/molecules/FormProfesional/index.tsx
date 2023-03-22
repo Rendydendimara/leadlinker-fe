@@ -1,11 +1,79 @@
+import { ApiCreatePersonal } from '@/api/personal';
 import InputForm from '@/component/InputForm';
 import ModalAccountCredential from '@/component/ModalAccountCredential';
+import useStore, { IUser } from '@/provider/zustand/store';
 import { Button } from '@chakra-ui/button';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
+import { createStandaloneToast } from '@chakra-ui/toast';
+import { useState } from 'react';
 
 export default function FormProfesional() {
+  const user = useStore((state) => state.user);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [form, setForm] = useState({
+    nickname: '',
+    fullname: '',
+    title1: '',
+    title2: '',
+    expertise: '',
+    passion: '',
+    goal: '',
+    noTelfon: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const { toast } = createStandaloneToast();
+  const setPageView = useStore((state) => state.setPageView);
+
+  const onChangeForm = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const submitRegister = () => {
+    if (user) {
+      onSuccessLogin(user);
+    } else {
+      onOpen();
+    }
+  };
+
+  const onSuccessLogin = async (userNew: IUser) => {
+    onClose();
+    if (userNew) {
+      setLoading(true);
+      const res = await ApiCreatePersonal({
+        ...form,
+        userId: userNew._id,
+      });
+      if (res.status === 200) {
+        toast({
+          position: 'bottom',
+          title: 'Success',
+          description: res.data.message,
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        setPageView('dashboard');
+      } else {
+        toast({
+          position: 'bottom',
+          title: 'Error',
+          description: res.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Box
@@ -26,6 +94,9 @@ export default function FormProfesional() {
             Hi, you can call me
           </Text>
           <InputForm
+            value={form.nickname}
+            name='nickname'
+            onChange={onChangeForm}
             isRequired={false}
             width='221px'
             heigth='44px'
@@ -35,6 +106,9 @@ export default function FormProfesional() {
         <Box mt='48px' />
         <VStack spacing='16px'>
           <InputForm
+            value={form.fullname}
+            name='fullname'
+            onChange={onChangeForm}
             isRequired={false}
             width='full'
             heigth='40px'
@@ -65,6 +139,84 @@ export default function FormProfesional() {
             }
           />
           <InputForm
+            value={form.title1}
+            name='title1'
+            onChange={onChangeForm}
+            isRequired={false}
+            width='full'
+            heigth='40px'
+            placeholder='Title (e.g. Product Manager)'
+            leftIcon={
+              <svg
+                width='20'
+                height='20'
+                viewBox='0 0 20 20'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M3.33228 5.83317L3.33228 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M0.833414 5.8335L19.1667 5.8335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M3.33342 8.3335L16.6667 8.3335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6669 11.6665H16.6667'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M16.6667 5.83317L16.6667 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6663 5.83317L11.6663 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 8.3332L14.1663 9.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 11.6667L14.1663 12.5'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            }
+          />
+          <InputForm
+            value={form.title2}
+            name='title2'
+            onChange={onChangeForm}
             isRequired={false}
             width='full'
             heigth='40px'
@@ -137,6 +289,9 @@ export default function FormProfesional() {
             }
           />
           <InputForm
+            value={form.expertise}
+            name='expertise'
+            onChange={onChangeForm}
             isRequired={false}
             width='full'
             heigth='211px'
@@ -144,6 +299,9 @@ export default function FormProfesional() {
             placeholder='Describe your expertise and relevant qualifications'
           />
           <InputForm
+            value={form.passion}
+            name='passion'
+            onChange={onChangeForm}
             isRequired={false}
             width='full'
             heigth='211px'
@@ -151,6 +309,9 @@ export default function FormProfesional() {
             placeholder='What are your passions outside of work? (e.g. writing, photography, playing an instrument)'
           />
           <InputForm
+            value={form.goal}
+            name='goal'
+            onChange={onChangeForm}
             isRequired={false}
             width='full'
             heigth='40px'
@@ -171,6 +332,9 @@ export default function FormProfesional() {
             }
           />
           <InputForm
+            value={form.noTelfon}
+            name='noTelfon'
+            onChange={onChangeForm}
             isRequired={false}
             width='full'
             heigth='40px'
@@ -207,12 +371,17 @@ export default function FormProfesional() {
           fontSize='16px'
           lineHeight='150%'
           color='#EFF3FA'
-          onClick={onOpen}
+          onClick={submitRegister}
+          isLoading={loading}
         >
           Register
         </Button>
       </Box>
-      <ModalAccountCredential onClose={onClose} isOpen={isOpen} />
+      <ModalAccountCredential
+        onSuccess={onSuccessLogin}
+        onClose={onClose}
+        isOpen={isOpen}
+      />
     </>
   );
 }

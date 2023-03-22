@@ -28,9 +28,10 @@ export default function InputForm(props: IPropsInputForm) {
           }}
           color='white'
           fontSize='13px'
-          // value={props.value}
-          // name={props.name}
-          // onChange={props.onChange}
+          value={props.value}
+          disabled={props.disabled}
+          name={props.name}
+          onChange={props.onChange}
           placeholder={props.placeholder}
           backgroundColor='rgba(48, 58, 71, 0.7)'
         />
@@ -68,12 +69,13 @@ export default function InputForm(props: IPropsInputForm) {
             lineHeight: '150%',
             color: '#919CAC',
           }}
+          disabled={props.disabled}
           type={props.type ?? 'text'}
           color='white'
           fontSize='13px'
-          // value={props.value}
-          // name={props.name}
-          // onChange={props.onChange}
+          value={props.value}
+          name={props.name}
+          onChange={props.onChange}
           placeholder={props.placeholder}
         />
       </InputGroup>
@@ -84,14 +86,15 @@ export default function InputForm(props: IPropsInputForm) {
 interface IPropsInputForm {
   label?: string;
   isRequired?: boolean;
-  placeholder: string;
-  // onChange: (e: any) => void;
-  // value: string;
+  placeholder?: string;
+  onChange?: (e: any) => void;
+  value?: string;
   leftIcon?: any;
-  // name: string;
+  name?: string;
   isMb?: boolean;
   type?: string;
   width?: string;
   heigth?: string;
   isTextarea?: boolean;
+  disabled?: boolean;
 }

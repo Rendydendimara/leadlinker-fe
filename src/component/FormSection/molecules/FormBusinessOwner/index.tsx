@@ -1,6 +1,9 @@
+import { ApiCreateBusinessOwner } from '@/api/businessOwner';
 import ModalAccountCredential from '@/component/ModalAccountCredential';
+import useStore, { IUser } from '@/provider/zustand/store';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
+import { createStandaloneToast } from '@chakra-ui/toast';
 import classNames from 'classnames';
 import { findIndex } from 'lodash';
 import { useState } from 'react';
@@ -16,6 +19,7 @@ interface IStep {
 }
 
 export default function FormBusinessOwner() {
+  const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentStep, setCurrentStep] = useState('business');
   const [listStep, setListStep] = useState<IStep[]>([
@@ -40,9 +44,47 @@ export default function FormBusinessOwner() {
       isPasses: false,
     },
   ]);
+  const setPageView = useStore((state) => state.setPageView);
+  const { toast } = createStandaloneToast();
+  const [form, setForm] = useState<any>({
+    business: {
+      companyName: '',
+      fullname: '',
+      profession: '',
+      location: '',
+      YearBusiness: '',
+      companyAbout: '',
+    },
+    personal: {
+      nickname: '',
+      fullname: '',
+      hobbies: '',
+      interest: '',
+    },
+    miscellaneous: {
+      burningDesire: '',
+      noOneKnowAboutMe: '',
+      keySuccess: '',
+    },
+    network: {
+      goals: '',
+      accomplishment: '',
+      interest: '',
+      network: '',
+      skill: '',
+    },
+  });
 
-  const onChangeStep = (stepId: string) => {
-    const index = findIndex(listStep, ['id', currentStep]);
+  const onChangeStep = (prevStep: string, nextStep: string) => {
+    const index = findIndex(listStep, ['id', prevStep]);
+    let nextListStep = listStep
+      .slice(index + 1, listStep.length)
+      .map((step) => {
+        return {
+          ...step,
+          isPasses: false,
+        };
+      });
     setListStep([
       ...listStep.slice(0, index),
       {
@@ -51,30 +93,107 @@ export default function FormBusinessOwner() {
       },
       ...listStep.slice(index + 1, listStep.length),
     ]);
-    setCurrentStep(stepId);
+    setCurrentStep(nextStep);
+  };
+
+  const onChangeForm = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    fieldName: any
+  ): void => {
+    setForm({
+      ...form,
+      [fieldName]: {
+        ...form[fieldName],
+        [event.target.name]: event.target.value,
+      },
+    });
   };
 
   const finishedSubmit = () => {
     onOpen();
   };
 
+  const onSuccessLogin = async (userNew: IUser) => {
+    onClose();
+    if (userNew) {
+      setLoading(true);
+      const res = await ApiCreateBusinessOwner({
+        ...form,
+        userId: userNew._id,
+      });
+      if (res.status === 200) {
+        toast({
+          position: 'bottom',
+          title: 'Success',
+          description: res.data.message,
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        setPageView('dashboard');
+      } else {
+        toast({
+          position: 'bottom',
+          title: 'Error',
+          description: res.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+      setLoading(false);
+    }
+  };
+
   const renderForm = () => {
     switch (currentStep) {
       case 'business':
-        return <FormBusiness nextSection={() => onChangeStep('personal')} />;
+        return (
+          <FormBusiness
+            companyName={form.business.companyName}
+            fullname={form.business.fullname}
+            profession={form.business.profession}
+            location={form.business.location}
+            YearBusiness={form.business.YearBusiness}
+            companyAbout={form.business.companyAbout}
+            onChangeForm={onChangeForm}
+            nextSection={() => onChangeStep('business', 'personal')}
+          />
+        );
       case 'personal':
         return (
-          <FormPersonal nextSection={() => onChangeStep('miscellaneous')} />
+          <FormPersonal
+            nickname={form.personal.nickname}
+            fullname={form.personal.fullname}
+            hobbies={form.personal.hobbies}
+            interest={form.personal.interest}
+            onChangeForm={onChangeForm}
+            nextSection={() => onChangeStep('personal', 'miscellaneous')}
+          />
         );
       case 'miscellaneous':
         return (
           <FormMiscellaneous
+            burningDesire={form.miscellaneous.burningDesire}
+            noOneKnowAboutMe={form.miscellaneous.noOneKnowAboutMe}
+            keySuccess={form.miscellaneous.keySuccess}
+            onChangeForm={onChangeForm}
             finishedSubmit={finishedSubmit}
-            nextSection={() => onChangeStep('network')}
+            nextSection={() => onChangeStep('miscellaneous', 'network')}
           />
         );
       case 'network':
-        return <FormNetwork finishedSubmit={finishedSubmit} />;
+        return (
+          <FormNetwork
+            goals={form.network.goals}
+            accomplishment={form.network.accomplishment}
+            interest={form.network.interest}
+            network={form.network.network}
+            skill={form.network.skill}
+            onChangeForm={onChangeForm}
+            finishedSubmit={finishedSubmit}
+          />
+        );
 
       default:
         break;
@@ -110,7 +229,7 @@ export default function FormBusinessOwner() {
                     style.name,
                     currentStep === step.id && style.active
                   )}
-                  onClick={() => onChangeStep(step.id)}
+                  onClick={() => onChangeStep(currentStep, step.id)}
                 >
                   {step.name}
                 </Text>
@@ -128,7 +247,11 @@ export default function FormBusinessOwner() {
           {renderForm()}
         </Box>
       </Flex>
-      <ModalAccountCredential onClose={onClose} isOpen={isOpen} />
+      <ModalAccountCredential
+        onSuccess={onSuccessLogin}
+        onClose={onClose}
+        isOpen={isOpen}
+      />
     </>
   );
 }

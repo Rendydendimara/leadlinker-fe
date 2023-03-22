@@ -1,9 +1,20 @@
 import InputForm from '@/component/InputForm';
 import { Button } from '@chakra-ui/button';
 import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
+import React from 'react';
 
 interface IProps {
   nextSection: () => void;
+  companyName: string;
+  fullname: string;
+  profession: string;
+  location: string;
+  YearBusiness: string;
+  companyAbout: string;
+  onChangeForm: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    fieldName: string
+  ) => void;
 }
 
 export default function FormBusiness(props: IProps) {
@@ -20,15 +31,21 @@ export default function FormBusiness(props: IProps) {
           Hi, I’m from
         </Text>
         <InputForm
+          value={props.companyName}
+          name='companyName'
+          onChange={(e) => props.onChangeForm(e, 'business')}
           isRequired={false}
           width='281px'
           heigth='44px'
-          placeholder='Nickname'
+          placeholder='Your company name'
         />
       </Flex>
       <Box mt='24px' />
       <VStack spacing='16px'>
         <InputForm
+          value={props.fullname}
+          name='fullname'
+          onChange={(e) => props.onChangeForm(e, 'business')}
           isRequired={false}
           width='full'
           heigth='40px'
@@ -59,6 +76,9 @@ export default function FormBusiness(props: IProps) {
           }
         />
         <InputForm
+          value={props.profession}
+          name='profession'
+          onChange={(e) => props.onChangeForm(e, 'business')}
           isRequired={false}
           width='full'
           heigth='40px'
@@ -131,6 +151,9 @@ export default function FormBusiness(props: IProps) {
           }
         />
         <InputForm
+          value={props.location}
+          name='location'
+          onChange={(e) => props.onChangeForm(e, 'business')}
           isRequired={false}
           width='full'
           heigth='40px'
@@ -182,6 +205,9 @@ export default function FormBusiness(props: IProps) {
           }
         />
         <InputForm
+          value={props.YearBusiness}
+          name='YearBusiness'
+          onChange={(e) => props.onChangeForm(e, 'business')}
           isRequired={false}
           width='full'
           heigth='40px'
@@ -254,11 +280,14 @@ export default function FormBusiness(props: IProps) {
           }
         />
         <InputForm
+          value={props.companyAbout}
+          name='companyAbout'
+          onChange={(e) => props.onChangeForm(e, 'business')}
           isRequired={false}
           width='full'
           heigth='211px'
           isTextarea={true}
-          placeholder='Describe your expertise and relevant qualifications'
+          placeholder='Quick information about your company'
         />
       </VStack>
       <Button

@@ -23,6 +23,7 @@ export default function FormSection() {
   };
   return (
     <Flex
+      id='formsection'
       flexDirection='column'
       py='90px'
       justifyContent='center'
@@ -71,31 +72,3 @@ export default function FormSection() {
     </Flex>
   );
 }
-
-interface IPropsContainerForm {
-  title: string;
-  children: any;
-}
-const ContainerForm: React.FC<IPropsContainerForm> = (props) => {
-  return (
-    <Box
-      background='linear-gradient(180deg, rgba(0, 0, 0, 0.3) -5.9%, rgba(0, 0, 0, 0) 147.74%)'
-      backdropFilter='blur(2px)'
-      borderRadius='12px'
-      w='364px'
-      padding='24px 32px 32px'
-    >
-      <Text
-        fontWeight='600'
-        fontSize='16px'
-        lineHeight='150%'
-        color='#FFFFFF'
-        textAlign='center'
-      >
-        {props.title}
-      </Text>
-      {/* form */}
-      <Box mt='48px'>{props.children}</Box>
-    </Box>
-  );
-};

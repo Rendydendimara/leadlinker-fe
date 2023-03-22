@@ -1,9 +1,18 @@
 import InputForm from '@/component/InputForm';
 import { Button } from '@chakra-ui/button';
-import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
+import { VStack } from '@chakra-ui/layout';
 
 interface IProps {
   finishedSubmit: () => void;
+  goals: string;
+  accomplishment: string;
+  interest: string;
+  network: string;
+  skill: string;
+  onChangeForm: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    fieldName: string
+  ) => void;
 }
 
 export default function FormNetwork(props: IProps) {
@@ -11,6 +20,9 @@ export default function FormNetwork(props: IProps) {
     <>
       <VStack spacing='16px'>
         <InputForm
+          value={props.goals}
+          name='goals'
+          onChange={(e) => props.onChangeForm(e, 'network')}
           isRequired={false}
           width='full'
           heigth='137px'
@@ -18,6 +30,9 @@ export default function FormNetwork(props: IProps) {
           placeholder='Goals'
         />
         <InputForm
+          value={props.accomplishment}
+          name='accomplishment'
+          onChange={(e) => props.onChangeForm(e, 'network')}
           isRequired={false}
           width='full'
           heigth='137px'
@@ -25,6 +40,9 @@ export default function FormNetwork(props: IProps) {
           placeholder='Accomplishment'
         />
         <InputForm
+          value={props.interest}
+          name='interest'
+          onChange={(e) => props.onChangeForm(e, 'network')}
           isRequired={false}
           width='full'
           heigth='137px'
@@ -32,6 +50,9 @@ export default function FormNetwork(props: IProps) {
           placeholder='Interest'
         />
         <InputForm
+          value={props.network}
+          name='network'
+          onChange={(e) => props.onChangeForm(e, 'network')}
           isRequired={false}
           width='full'
           heigth='137px'
@@ -39,6 +60,9 @@ export default function FormNetwork(props: IProps) {
           placeholder='Network'
         />
         <InputForm
+          value={props.skill}
+          name='skill'
+          onChange={(e) => props.onChangeForm(e, 'network')}
           isRequired={false}
           width='full'
           heigth='137px'

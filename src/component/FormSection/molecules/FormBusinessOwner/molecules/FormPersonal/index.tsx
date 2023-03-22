@@ -4,6 +4,14 @@ import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
 
 interface IProps {
   nextSection: () => void;
+  nickname: string;
+  fullname: string;
+  hobbies: string;
+  interest: string;
+  onChangeForm: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    fieldName: string
+  ) => void;
 }
 
 export default function FormPersonal(props: IProps) {
@@ -20,15 +28,21 @@ export default function FormPersonal(props: IProps) {
           Hi, I’m from
         </Text>
         <InputForm
+          value={props.nickname}
+          name='nickname'
+          onChange={(e) => props.onChangeForm(e, 'personal')}
           isRequired={false}
           width='281px'
           heigth='44px'
-          placeholder='Your company name'
+          placeholder='Your nickname'
         />
       </Flex>
       <Box mt='24px' />
       <VStack spacing='16px'>
         <InputForm
+          value={props.fullname}
+          name='fullname'
+          onChange={(e) => props.onChangeForm(e, 'personal')}
           isRequired={false}
           width='full'
           heigth='40px'
@@ -59,6 +73,9 @@ export default function FormPersonal(props: IProps) {
           }
         />
         <InputForm
+          value={props.hobbies}
+          name='hobbies'
+          onChange={(e) => props.onChangeForm(e, 'personal')}
           isRequired={false}
           width='full'
           heigth='40px'
@@ -131,6 +148,9 @@ export default function FormPersonal(props: IProps) {
           }
         />
         <InputForm
+          value={props.interest}
+          name='interest'
+          onChange={(e) => props.onChangeForm(e, 'personal')}
           isRequired={false}
           width='full'
           heigth='40px'

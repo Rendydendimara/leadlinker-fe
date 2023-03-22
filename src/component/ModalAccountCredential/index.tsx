@@ -1,19 +1,91 @@
+import { ApiLogin, ApiRegister } from '@/api/auth';
 import InputForm from '@/component/InputForm';
+import useStore, { IUser } from '@/provider/zustand/store';
 import { Button } from '@chakra-ui/button';
 import { Text, VStack } from '@chakra-ui/layout';
-import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import {
+  createStandaloneToast,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+} from '@chakra-ui/react';
+import { useState } from 'react';
 
 interface IProps {
   onClose: () => void;
   isOpen: boolean;
+  onSuccess: (user: IUser) => void;
 }
 export default function ModalAccountCredential(props: IProps) {
+  const setUser = useStore((state) => state.setUser);
+  const [loading, setLoading] = useState(false);
+  const { toast } = createStandaloneToast();
+  const [form, setForm] = useState({
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirm: '',
+  });
+
+  const onChangeForm = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const registerUser = async () => {
+    setLoading(true);
+    if (form.password !== form.passwordConfirm) {
+      toast({
+        position: 'bottom',
+        title: 'Error',
+        description: 'Password confirm not match',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      setLoading(false);
+      return;
+    }
+    const res = await ApiRegister({
+      username: form.username,
+      email: form.email,
+      password: form.password,
+    });
+    if (res.status === 200) {
+      toast({
+        position: 'bottom',
+        title: 'Success',
+        description: 'Success Register',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      setUser(res.data.data);
+      props.onSuccess(res.data.data);
+    } else {
+      toast({
+        position: 'bottom',
+        title: 'Error',
+        description: res.data.message,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+    setLoading(false);
+  };
+
   return (
     <Modal onClose={props.onClose} isOpen={props.isOpen} isCentered>
       <ModalOverlay blur='xl' />
       <ModalContent
         width='364px'
-        height='388px'
+        // height='388px'
         borderRadius='12px'
         padding='24px 32px 32px'
         bgColor='#000000'
@@ -31,10 +103,13 @@ export default function ModalAccountCredential(props: IProps) {
           </Text>
           <VStack mt='48px' spacing='16px'>
             <InputForm
+              value={form.username}
+              name='username'
+              onChange={onChangeForm}
               isRequired={false}
               width='full'
               heigth='40px'
-              placeholder='Login'
+              placeholder='Username'
               leftIcon={
                 <svg
                   width='20'
@@ -96,6 +171,78 @@ export default function ModalAccountCredential(props: IProps) {
               }
             />
             <InputForm
+              value={form.email}
+              name='email'
+              onChange={onChangeForm}
+              isRequired={false}
+              width='full'
+              heigth='40px'
+              type='email'
+              placeholder='Email'
+              leftIcon={
+                <svg
+                  width='20'
+                  height='20'
+                  viewBox='0 0 20 20'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    d='M8.33237 7.50833L8.3407 7.49907'
+                    stroke='white'
+                    stroke-width='1.24995'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                  <path
+                    d='M11.6684 7.50833L11.6768 7.49907'
+                    stroke='white'
+                    stroke-width='1.24995'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                  <path
+                    d='M8.33237 10.8418L8.3407 10.8326'
+                    stroke='white'
+                    stroke-width='1.24995'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                  <path
+                    d='M11.6684 10.8418L11.6768 10.8326'
+                    stroke='white'
+                    stroke-width='1.24995'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                  <path
+                    d='M8.33237 14.1753L8.3407 14.1661'
+                    stroke='white'
+                    stroke-width='1.24995'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                  <path
+                    d='M11.6684 14.1753L11.6768 14.1661'
+                    stroke='white'
+                    stroke-width='1.24995'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                  <path
+                    d='M5.00061 17V4.66665C5.00061 4.39052 5.22446 4.16667 5.50059 4.16667H10.0006V2.99998C10.0006 2.72385 10.2245 2.5 10.5006 2.5H14.5006C14.7768 2.5 15.0006 2.72385 15.0006 2.99998V17C15.0006 17.2762 14.7768 17.5 14.5006 17.5H5.50059C5.22446 17.5 5.00061 17.2762 5.00061 17Z'
+                    stroke='white'
+                    stroke-width='1.24995'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                </svg>
+              }
+            />
+            <InputForm
+              value={form.password}
+              name='password'
+              onChange={onChangeForm}
               isRequired={false}
               width='full'
               heigth='40px'
@@ -149,6 +296,9 @@ export default function ModalAccountCredential(props: IProps) {
               }
             />
             <InputForm
+              value={form.passwordConfirm}
+              name='passwordConfirm'
+              onChange={onChangeForm}
               isRequired={false}
               width='full'
               heigth='40px'
@@ -214,7 +364,8 @@ export default function ModalAccountCredential(props: IProps) {
             fontSize='16px'
             lineHeight='150%'
             color='#EFF3FA'
-            onClick={props.onClose}
+            isLoading={loading}
+            onClick={registerUser}
           >
             Submit
           </Button>
