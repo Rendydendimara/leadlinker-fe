@@ -1,5 +1,6 @@
 import { ApiLogin } from '@/api/auth';
 import InputForm from '@/component/InputForm';
+import { localCookieSaveToken } from '@/lib/Cookies/AppCookies';
 import useStore from '@/provider/zustand/store';
 import { Button } from '@chakra-ui/button';
 import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
@@ -44,6 +45,7 @@ export default function Login() {
       });
       setUser(res.data.data);
       setPageView('dashboard');
+      localCookieSaveToken(res.data.data.token);
       Router.push('/');
     } else {
       toast({
@@ -67,6 +69,27 @@ export default function Login() {
         alignItems='center'
         flexDirection='column'
       >
+        <Box
+          position='absolute'
+          top='50px'
+          right='41px'
+          _hover={{ cursor: 'pointer' }}
+        >
+          <Link href='/'>
+            <svg
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M6.46967 16.4697C6.17678 16.7626 6.17678 17.2374 6.46967 17.5303C6.76256 17.8232 7.23744 17.8232 7.53033 17.5303L6.46967 16.4697ZM12.5303 12.5303C12.8232 12.2374 12.8232 11.7626 12.5303 11.4697C12.2374 11.1768 11.7626 11.1768 11.4697 11.4697L12.5303 12.5303ZM11.4697 11.4697C11.1768 11.7626 11.1768 12.2374 11.4697 12.5303C11.7626 12.8232 12.2374 12.8232 12.5303 12.5303L11.4697 11.4697ZM17.5303 7.53033C17.8232 7.23744 17.8232 6.76256 17.5303 6.46967C17.2374 6.17678 16.7626 6.17678 16.4697 6.46967L17.5303 7.53033ZM12.5303 11.4697C12.2374 11.1768 11.7626 11.1768 11.4697 11.4697C11.1768 11.7626 11.1768 12.2374 11.4697 12.5303L12.5303 11.4697ZM16.4697 17.5303C16.7626 17.8232 17.2374 17.8232 17.5303 17.5303C17.8232 17.2374 17.8232 16.7626 17.5303 16.4697L16.4697 17.5303ZM11.4697 12.5303C11.7626 12.8232 12.2374 12.8232 12.5303 12.5303C12.8232 12.2374 12.8232 11.7626 12.5303 11.4697L11.4697 12.5303ZM7.53033 6.46967C7.23744 6.17678 6.76256 6.17678 6.46967 6.46967C6.17678 6.76256 6.17678 7.23744 6.46967 7.53033L7.53033 6.46967ZM7.53033 17.5303L12.5303 12.5303L11.4697 11.4697L6.46967 16.4697L7.53033 17.5303ZM12.5303 12.5303L17.5303 7.53033L16.4697 6.46967L11.4697 11.4697L12.5303 12.5303ZM11.4697 12.5303L16.4697 17.5303L17.5303 16.4697L12.5303 11.4697L11.4697 12.5303ZM12.5303 11.4697L7.53033 6.46967L6.46967 7.53033L11.4697 12.5303L12.5303 11.4697Z'
+                fill='white'
+              />
+            </svg>
+          </Link>
+        </Box>
         <Text
           fontWeight='700'
           fontSize='40px'
@@ -87,10 +110,10 @@ export default function Login() {
           Customize your link
         </Text>
         <Box
-          mt='5%'
+          mt='6%'
           width='364px'
           borderRadius='12px'
-          padding='24px 32px 32px 32px'
+          padding='32px'
           background='linear-gradient(180deg, rgba(0, 0, 0, 0.3) -5.9%, rgba(0, 0, 0, 0) 147.74%)'
           backdropFilter='blur(2px)'
         >
@@ -185,29 +208,50 @@ export default function Login() {
                 </svg>
               }
             />
-            <Button
-              mt='48px'
-              _hover={{}}
-              _active={{}}
-              width='full'
-              height='48px'
-              backgroundColor='#EF476F'
-              borderRadius='8px'
-              fontWeight='500'
-              fontSize='16px'
-              lineHeight='150%'
-              color='#EFF3FA'
-              isLoading={loading}
-              onClick={loginUser}
-            >
-              Login
-            </Button>
+            <VStack mt='48px' w='full' spacing='12px'>
+              <Button
+                _hover={{}}
+                _active={{}}
+                width='full'
+                height='48px'
+                backgroundColor='#EF476F'
+                borderRadius='8px'
+                fontWeight='500'
+                fontSize='16px'
+                lineHeight='150%'
+                color='#EFF3FA'
+                isLoading={loading}
+                onClick={loginUser}
+              >
+                Login
+              </Button>
+              <Link style={{ width: '100%' }} href='/#formsection'>
+                <Button
+                  _hover={{}}
+                  _active={{}}
+                  width='full'
+                  height='48px'
+                  backgroundColor='transparent'
+                  borderRadius='8px'
+                  border='1px solid #FFFFFF'
+                  fontWeight='500'
+                  fontSize='16px'
+                  lineHeight='150%'
+                  color='#EFF3FA'
+                  isLoading={loading}
+                  // onClick={loginUser}
+                >
+                  Register
+                </Button>
+              </Link>
+            </VStack>
             <Flex justifyContent='center' w='full'>
               <Link
                 href='/forget-password'
                 style={{
-                  color: '#EF476F',
-                  fontSize: '12px',
+                  color: '#BCC7D8',
+                  fontSize: '13px',
+                  fontWeight: '500',
                 }}
               >
                 Forget Password

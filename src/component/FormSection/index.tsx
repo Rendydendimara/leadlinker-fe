@@ -10,7 +10,6 @@ import FormBusinessOwner from './molecules/FormBusinessOwner';
 import FormProfesional from './molecules/FormProfesional';
 
 export default function FormSection() {
-  const [confirmationForm, setConfirmationForm] = useState(false);
   const [activeView, setActiveView] =
     useState<'profesional' | 'business-owner'>('profesional');
 
@@ -18,9 +17,6 @@ export default function FormSection() {
     setActiveView(type);
   };
 
-  const openConfirmation = () => {
-    setConfirmationForm(true);
-  };
   return (
     <Flex
       id='formsection'

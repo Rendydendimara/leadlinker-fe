@@ -1,5 +1,6 @@
 .name:hover {
   cursor: pointer;
+  color: #f377ad;
 }
 .name {
   font-weight: 600;

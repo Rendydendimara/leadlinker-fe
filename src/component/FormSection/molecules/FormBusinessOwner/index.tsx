@@ -6,7 +6,7 @@ import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
 import { createStandaloneToast } from '@chakra-ui/toast';
 import classNames from 'classnames';
 import { findIndex } from 'lodash';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from './index.module.css';
 import FormBusiness from './molecules/FormBusiness';
 import FormMiscellaneous from './molecules/FormMiscellaneous';
@@ -18,10 +18,16 @@ interface IStep {
   isPasses: boolean;
 }
 
-export default function FormBusinessOwner() {
+interface IProps {
+  state?: 'create' | 'update';
+  dataForm?: any;
+}
+
+export default function FormBusinessOwner(props: IProps) {
   const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentStep, setCurrentStep] = useState('business');
+  const [stateForm, setStateForm] = useState('create');
   const [listStep, setListStep] = useState<IStep[]>([
     {
       name: 'Business',
@@ -77,24 +83,80 @@ export default function FormBusinessOwner() {
 
   const onChangeStep = (prevStep: string, nextStep: string) => {
     const index = findIndex(listStep, ['id', prevStep]);
-    let nextListStep = listStep
-      .slice(index + 1, listStep.length)
-      .map((step) => {
-        return {
-          ...step,
-          isPasses: false,
-        };
-      });
+    // let nextListStep = listStep
+    //   .slice(index + 1, listStep.length)
+    //   .map((step) => {
+    //     return {
+    //       ...step,
+    //       isPasses: false,
+    //     };
+    //   });
     setListStep([
       ...listStep.slice(0, index),
       {
         ...listStep[index],
-        isPasses: true,
+        isPasses: checkIsPasses(prevStep),
       },
       ...listStep.slice(index + 1, listStep.length),
     ]);
     setCurrentStep(nextStep);
   };
+
+  const checkIsPasses = (stepId: string) => {
+    switch (stepId) {
+      case 'business':
+        if (
+          form.business.companyName &&
+          form.business.fullname &&
+          form.business.profession &&
+          form.business.location &&
+          form.business.YearBusiness &&
+          form.business.companyAbout
+        ) {
+          return true;
+        }
+        return false;
+      case 'personal':
+        if (
+          form.personal.nickname &&
+          form.personal.hobbies &&
+          form.personal.fullname &&
+          form.personal.interest
+        ) {
+          return true;
+        }
+        return false;
+      case 'miscellaneous':
+        if (
+          form.miscellaneous.burningDesire &&
+          form.miscellaneous.noOneKnowAboutMe &&
+          form.miscellaneous.keySuccess
+        ) {
+          return true;
+        }
+        return false;
+      case 'network':
+        if (
+          form.network.goals &&
+          form.network.accomplishment &&
+          form.network.interest &&
+          form.network.network &&
+          form.network.skill
+        ) {
+          return true;
+        }
+        return false;
+      default:
+        return false;
+    }
+  };
+
+  // const isAllInput = () => {
+  //   if(props.YearBusiness && props.companyName && props.fullname && props.location && props.profession && props.companyAbout) {
+  //     return true
+  //   }
+  //   return false
+  // }
 
   const onChangeForm = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -110,7 +172,11 @@ export default function FormBusinessOwner() {
   };
 
   const finishedSubmit = () => {
-    onOpen();
+    if (stateForm === 'create') {
+      onOpen();
+    } else {
+      // update
+    }
   };
 
   const onSuccessLogin = async (userNew: IUser) => {
@@ -200,9 +266,43 @@ export default function FormBusinessOwner() {
     }
   };
 
+  useEffect(() => {
+    if (props.state === 'update' && props.dataForm) {
+      setForm({
+        business: {
+          companyName: props.dataForm.business.companyName,
+          fullname: props.dataForm.business.fullname,
+          profession: props.dataForm.business.profession,
+          location: props.dataForm.business.location,
+          YearBusiness: props.dataForm.business.YearBusiness,
+          companyAbout: props.dataForm.business.companyAbout,
+        },
+        personal: {
+          nickname: props.dataForm.personal.nickname,
+          fullname: props.dataForm.personal.fullname,
+          hobbies: props.dataForm.personal.hobbies,
+          interest: props.dataForm.personal.interest,
+        },
+        miscellaneous: {
+          burningDesire: props.dataForm.miscellaneous.burningDesire,
+          noOneKnowAboutMe: props.dataForm.miscellaneous.noOneKnowAboutMe,
+          keySuccess: props.dataForm.miscellaneous.keySuccess,
+        },
+        network: {
+          goals: props.dataForm.network.goals,
+          accomplishment: props.dataForm.network.accomplishment,
+          interest: props.dataForm.network.interest,
+          network: props.dataForm.network.network,
+          skill: props.dataForm.network.skill,
+        },
+      });
+      setStateForm('update');
+    }
+  }, [props.state]);
+
   return (
     <>
-      <Flex gap='40px' alignItems='flex-start'>
+      <Flex gap='40px' alignItems='flex-start' minH='100vh'>
         <Box width='156px'>
           <VStack spacing='20px' w='full' alignItems='flex-start'>
             {listStep.map((step: IStep, index: number) => (

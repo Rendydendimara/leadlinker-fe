@@ -114,7 +114,7 @@ export default function Login() {
           Create a new password to replace the old password
         </Text>
         <Box
-          mt='5%'
+          mt='6%'
           width='364px'
           borderRadius='12px'
           padding='24px 32px 32px 32px'

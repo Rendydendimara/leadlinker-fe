@@ -6,10 +6,27 @@ import { Button } from '@chakra-ui/button';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
 import { createStandaloneToast } from '@chakra-ui/toast';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function FormProfesional() {
+interface IDataForm {
+  id: string;
+  nickname: string;
+  fullname: string;
+  title1: string;
+  title2: string;
+  expertise: string;
+  passion: string;
+  goal: string;
+  noTelfon: string;
+}
+interface IProps {
+  state?: 'create' | 'update';
+  dataForm?: IDataForm;
+}
+
+export default function FormProfesional(props: IProps) {
   const user = useStore((state) => state.user);
+  const [stateForm, setStateForm] = useState('create');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [form, setForm] = useState({
     nickname: '',
@@ -35,10 +52,14 @@ export default function FormProfesional() {
   };
 
   const submitRegister = () => {
-    if (user) {
-      onSuccessLogin(user);
+    if (stateForm === 'create') {
+      if (user) {
+        onSuccessLogin(user);
+      } else {
+        onOpen();
+      }
     } else {
-      onOpen();
+      // update
     }
   };
 
@@ -73,6 +94,22 @@ export default function FormProfesional() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (props.state === 'update' && props.dataForm) {
+      setForm({
+        nickname: props.dataForm.nickname,
+        fullname: props.dataForm.fullname,
+        title1: props.dataForm.title1,
+        title2: props.dataForm.title2,
+        expertise: props.dataForm.expertise,
+        passion: props.dataForm.passion,
+        goal: props.dataForm.goal,
+        noTelfon: props.dataForm.noTelfon,
+      });
+      setStateForm('update');
+    }
+  }, [props.state]);
 
   return (
     <>
@@ -374,7 +411,7 @@ export default function FormProfesional() {
           onClick={submitRegister}
           isLoading={loading}
         >
-          Register
+          {stateForm === 'create' ? 'Register' : 'Update'}
         </Button>
       </Box>
       <ModalAccountCredential
