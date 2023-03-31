@@ -1,17 +1,22 @@
 import axios from 'axios';
 import { BACKEND_URL } from '../constant';
 import { AxiosWithToken } from '../lib/axios';
-
 export const ApiCreatePersonal = async (data: {
+  userId: string;
   nickname: string;
   fullname: string;
   title1: string;
-  title2: string;
+  previousWorking: string;
+  confident: string;
+  skillNotShowed: string;
+  spareTime: string;
+  iLike: string;
+  iDontLike: string;
   expertise: string;
-  passion: string;
+  notPeopleKnowYou: string;
+  reactOutYou: string;
   goal: string;
   noTelfon: string;
-  userId: string;
   background: string;
 }) => {
   const response = await AxiosWithToken()

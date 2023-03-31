@@ -46,7 +46,7 @@ export default function Login() {
       setUser(res.data.data);
       setPageView('dashboard');
       localCookieSaveToken(res.data.data.token);
-      Router.push('/');
+      Router.push('/card');
     } else {
       toast({
         position: 'bottom',

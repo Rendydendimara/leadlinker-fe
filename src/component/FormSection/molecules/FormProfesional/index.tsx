@@ -15,9 +15,15 @@ interface IDataForm {
   nickname: string;
   fullname: string;
   title1: string;
-  title2: string;
+  previousWorking: string;
+  confident: string;
+  skillNotShowed: string;
+  spareTime: string;
+  iLike: string;
+  iDontLike: string;
   expertise: string;
-  passion: string;
+  notPeopleKnowYou: string;
+  reactOutYou: string;
   goal: string;
   noTelfon: string;
   background: string;
@@ -35,9 +41,15 @@ export default function FormProfesional(props: IProps) {
     nickname: '',
     fullname: '',
     title1: '',
-    title2: '',
+    previousWorking: '',
+    confident: '',
+    skillNotShowed: '',
+    spareTime: '',
+    iLike: '',
+    iDontLike: '',
     expertise: '',
-    passion: '',
+    notPeopleKnowYou: '',
+    reactOutYou: '',
     goal: '',
     noTelfon: '',
     background: '',
@@ -111,9 +123,15 @@ export default function FormProfesional(props: IProps) {
         nickname: props.dataForm.nickname,
         fullname: props.dataForm.fullname,
         title1: props.dataForm.title1,
-        title2: props.dataForm.title2,
+        previousWorking: props.dataForm.previousWorking,
+        confident: props.dataForm.confident,
+        skillNotShowed: props.dataForm.skillNotShowed,
+        spareTime: props.dataForm.spareTime,
+        iLike: props.dataForm.iLike,
+        iDontLike: props.dataForm.iDontLike,
         expertise: props.dataForm.expertise,
-        passion: props.dataForm.passion,
+        notPeopleKnowYou: props.dataForm.notPeopleKnowYou,
+        reactOutYou: props.dataForm.reactOutYou,
         goal: props.dataForm.goal,
         noTelfon: props.dataForm.noTelfon,
         background: props.dataForm.background,
@@ -154,13 +172,14 @@ export default function FormProfesional(props: IProps) {
         <Box mt='48px' />
         <VStack spacing='16px'>
           <InputForm
+            label='and my full name is'
             value={form.fullname}
             name='fullname'
             onChange={onChangeForm}
             isRequired={false}
             width='full'
             heigth='40px'
-            placeholder='Full name'
+            placeholder='Your full name'
             leftIcon={
               <svg
                 width='20'
@@ -187,13 +206,14 @@ export default function FormProfesional(props: IProps) {
             }
           />
           <InputForm
+            label='currently I’m working as '
             value={form.title1}
             name='title1'
             onChange={onChangeForm}
             isRequired={false}
             width='full'
             heigth='40px'
-            placeholder='Title (e.g. Product Manager)'
+            placeholder='Title & company (e.g. Product Manager)'
             leftIcon={
               <svg
                 width='20'
@@ -262,13 +282,14 @@ export default function FormProfesional(props: IProps) {
             }
           />
           <InputForm
-            value={form.title2}
-            name='title2'
+            label='and previous i’m working'
+            value={form.previousWorking}
+            name='previousWorking'
             onChange={onChangeForm}
             isRequired={false}
             width='full'
             heigth='40px'
-            placeholder='Title (e.g. Financial team)'
+            placeholder='Previous job'
             leftIcon={
               <svg
                 width='20'
@@ -337,8 +358,96 @@ export default function FormProfesional(props: IProps) {
             }
           />
           <InputForm
-            value={form.expertise}
-            name='expertise'
+            label='i would do this things when have a spare time'
+            value={form.spareTime}
+            name='spareTime'
+            onChange={onChangeForm}
+            isRequired={false}
+            width='full'
+            heigth='40px'
+            placeholder='Your activity'
+            leftIcon={
+              <svg
+                width='20'
+                height='20'
+                viewBox='0 0 20 20'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M3.33228 5.83317L3.33228 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M0.833414 5.8335L19.1667 5.8335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M3.33342 8.3335L16.6667 8.3335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6669 11.6665H16.6667'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M16.6667 5.83317L16.6667 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6663 5.83317L11.6663 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 8.3332L14.1663 9.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 11.6667L14.1663 12.5'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            }
+          />
+          <InputForm
+            value={form.confident}
+            name='confident'
+            onChange={onChangeForm}
+            isRequired={false}
+            label='i’m quite confident with this'
+            width='full'
+            heigth='211px'
+            isTextarea={true}
+            placeholder='Describe your expertise and relevant qualifications'
+          />
+          <InputForm
+            label='Here are some skill that not showed in company'
+            value={form.skillNotShowed}
+            name='skillNotShowed'
             onChange={onChangeForm}
             isRequired={false}
             width='full'
@@ -347,16 +456,387 @@ export default function FormProfesional(props: IProps) {
             placeholder='Describe your expertise and relevant qualifications'
           />
           <InputForm
-            value={form.passion}
-            name='passion'
+            label='let them know what you like'
+            value={form.iLike}
+            name='iLike'
             onChange={onChangeForm}
             isRequired={false}
             width='full'
-            heigth='211px'
-            isTextarea={true}
-            placeholder='What are your passions outside of work? (e.g. writing, photography, playing an instrument)'
+            heigth='40px'
+            placeholder='Your activity'
+            leftIcon={
+              <svg
+                width='20'
+                height='20'
+                viewBox='0 0 20 20'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M3.33228 5.83317L3.33228 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M0.833414 5.8335L19.1667 5.8335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M3.33342 8.3335L16.6667 8.3335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6669 11.6665H16.6667'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M16.6667 5.83317L16.6667 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6663 5.83317L11.6663 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 8.3332L14.1663 9.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 11.6667L14.1663 12.5'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            }
           />
           <InputForm
+            label='let them know what you don’t like'
+            value={form.iDontLike}
+            name='iDontLike'
+            onChange={onChangeForm}
+            isRequired={false}
+            width='full'
+            heigth='40px'
+            placeholder='Your activity'
+            leftIcon={
+              <svg
+                width='20'
+                height='20'
+                viewBox='0 0 20 20'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M3.33228 5.83317L3.33228 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M0.833414 5.8335L19.1667 5.8335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M3.33342 8.3335L16.6667 8.3335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6669 11.6665H16.6667'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M16.6667 5.83317L16.6667 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6663 5.83317L11.6663 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 8.3332L14.1663 9.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 11.6667L14.1663 12.5'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            }
+          />
+          <InputForm
+            label='let them know something that not all people know about you'
+            value={form.notPeopleKnowYou}
+            name='notPeopleKnowYou'
+            onChange={onChangeForm}
+            isRequired={false}
+            width='full'
+            heigth='40px'
+            placeholder='Your activity'
+            leftIcon={
+              <svg
+                width='20'
+                height='20'
+                viewBox='0 0 20 20'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M3.33228 5.83317L3.33228 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M0.833414 5.8335L19.1667 5.8335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M3.33342 8.3335L16.6667 8.3335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6669 11.6665H16.6667'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M16.6667 5.83317L16.6667 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6663 5.83317L11.6663 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 8.3332L14.1663 9.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 11.6667L14.1663 12.5'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            }
+          />
+          <InputForm
+            label='It’s my goal'
+            value={form.goal}
+            name='goal'
+            onChange={onChangeForm}
+            isRequired={false}
+            width='full'
+            heigth='40px'
+            placeholder='Your activity'
+            leftIcon={
+              <svg
+                width='20'
+                height='20'
+                viewBox='0 0 20 20'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M3.33228 5.83317L3.33228 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M0.833414 5.8335L19.1667 5.8335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M3.33342 8.3335L16.6667 8.3335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6669 11.6665H16.6667'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M16.6667 5.83317L16.6667 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6663 5.83317L11.6663 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 8.3332L14.1663 9.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 11.6667L14.1663 12.5'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            }
+          />
+          <InputForm
+            label='Let them reach out you'
+            value={form.reactOutYou}
+            name='reactOutYou'
+            onChange={onChangeForm}
+            isRequired={false}
+            width='full'
+            heigth='40px'
+            placeholder='Your activity'
+            leftIcon={
+              <svg
+                width='20'
+                height='20'
+                viewBox='0 0 20 20'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M3.33228 5.83317L3.33228 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M0.833414 5.8335L19.1667 5.8335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M3.33342 8.3335L16.6667 8.3335'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6669 11.6665H16.6667'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M16.6667 5.83317L16.6667 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M11.6663 5.83317L11.6663 14.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 8.3332L14.1663 9.1665'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+                <path
+                  d='M14.1663 11.6667L14.1663 12.5'
+                  stroke='white'
+                  stroke-width='1.24995'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            }
+          />
+
+          {/* <InputForm
             value={form.goal}
             name='goal'
             onChange={onChangeForm}
@@ -378,8 +858,9 @@ export default function FormProfesional(props: IProps) {
                 />
               </svg>
             }
-          />
+          />*/}
           <InputForm
+            label='Tell us your phone'
             value={form.noTelfon}
             name='noTelfon'
             onChange={onChangeForm}
@@ -433,7 +914,7 @@ export default function FormProfesional(props: IProps) {
           onClick={submitRegister}
           isLoading={loading}
         >
-          {stateForm === 'create' ? 'Register' : 'Update'}
+          {stateForm === 'create' ? 'Create Link' : 'Update'}
         </Button>
       </Box>
       <ModalAccountCredential

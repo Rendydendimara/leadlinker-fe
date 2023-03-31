@@ -48,7 +48,7 @@ export default function FormSection() {
       </Flex>
       <Text
         maxW='723px'
-        fontWeight='500'
+        fontWeight='400'
         fontSize='16px'
         lineHeight='150%'
         textAlign='center'

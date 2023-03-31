@@ -84,7 +84,7 @@ export default function FormNetwork(props: IProps) {
         color='#EFF3FA'
         onClick={props.finishedSubmit}
       >
-        Finish & Submit
+        Finish & Create Link
       </Button>
     </>
   );

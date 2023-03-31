@@ -14,6 +14,7 @@ import FormNetwork from './molecules/FormNetwork';
 import FormPersonal from './molecules/FormPersonal';
 import { SketchPicker } from 'react-color';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
+import { OPTIONS_INTEREST } from '@/constant';
 
 interface IStep {
   name: string;
@@ -65,14 +66,16 @@ export default function FormBusinessOwner(props: IProps) {
       companyAbout: '',
     },
     personal: {
-      nickname: '',
-      fullname: '',
-      hobbies: '',
+      homeCity: '',
+      aboutMeDontKnow: '',
+      skillNotShow: '',
+      kids: '',
       interest: [],
     },
     miscellaneous: {
       burningDesire: '',
-      noOneKnowAboutMe: '',
+      favoritesSuperhero: '',
+      representYou: '',
       keySuccess: '',
     },
     network: {
@@ -128,9 +131,10 @@ export default function FormBusinessOwner(props: IProps) {
         return false;
       case 'personal':
         if (
-          form.personal.nickname &&
-          form.personal.hobbies &&
-          form.personal.fullname &&
+          form.personal.homeCity &&
+          form.personal.aboutMeDontKnow &&
+          form.personal.skillNotShow &&
+          form.perosnal.kids &&
           form.personal.interest
         ) {
           return true;
@@ -139,7 +143,8 @@ export default function FormBusinessOwner(props: IProps) {
       case 'miscellaneous':
         if (
           form.miscellaneous.burningDesire &&
-          form.miscellaneous.noOneKnowAboutMe &&
+          form.miscellaneous.favoritesSuperhero &&
+          form.miscellaneous.representYou &&
           form.miscellaneous.keySuccess
         ) {
           return true;
@@ -253,9 +258,10 @@ export default function FormBusinessOwner(props: IProps) {
         return (
           <FormPersonal
             onChangeInterest={onChangeInterest}
-            nickname={form.personal.nickname}
-            fullname={form.personal.fullname}
-            hobbies={form.personal.hobbies}
+            kids={form.personal.kids}
+            homeCity={form.personal.homeCity}
+            aboutMeDontKnow={form.personal.aboutMeDontKnow}
+            skillNotShow={form.personal.skillNotShow}
             interest={form.personal.interest}
             onChangeForm={onChangeForm}
             nextSection={() => onChangeStep('personal', 'miscellaneous')}
@@ -265,7 +271,8 @@ export default function FormBusinessOwner(props: IProps) {
         return (
           <FormMiscellaneous
             burningDesire={form.miscellaneous.burningDesire}
-            noOneKnowAboutMe={form.miscellaneous.noOneKnowAboutMe}
+            favoritesSuperhero={form.miscellaneous.favoritesSuperhero}
+            representYou={form.miscellaneous.representYou}
             keySuccess={form.miscellaneous.keySuccess}
             onChangeForm={onChangeForm}
             finishedSubmit={finishedSubmit}
@@ -292,6 +299,14 @@ export default function FormBusinessOwner(props: IProps) {
 
   useEffect(() => {
     if (props.state === 'update' && props.dataForm) {
+      let temp: any[] = [];
+      const interest = props.dataForm?.personal?.interest ?? [];
+      interest.forEach((inte: string) => {
+        const select = OPTIONS_INTEREST.filter((op) => op.value === inte);
+        if (select.length > 0) {
+          temp.push(select);
+        }
+      });
       setForm({
         business: {
           companyName: props.dataForm.business.companyName,
@@ -305,7 +320,7 @@ export default function FormBusinessOwner(props: IProps) {
           nickname: props.dataForm.personal.nickname,
           fullname: props.dataForm.personal.fullname,
           hobbies: props.dataForm.personal.hobbies,
-          interest: props.dataForm.personal.interest,
+          interest: temp,
         },
         miscellaneous: {
           burningDesire: props.dataForm.miscellaneous.burningDesire,

@@ -43,13 +43,14 @@ export default function FormBusiness(props: IProps) {
       <Box mt='24px' />
       <VStack spacing='16px'>
         <InputForm
+          label='My name is'
           value={props.fullname}
           name='fullname'
           onChange={(e) => props.onChangeForm(e, 'business')}
           isRequired={false}
           width='full'
           heigth='40px'
-          placeholder='Full name'
+          placeholder='Your full name'
           leftIcon={
             <svg
               width='20'
@@ -78,11 +79,12 @@ export default function FormBusiness(props: IProps) {
         <InputForm
           value={props.profession}
           name='profession'
+          label='I’m working here as'
           onChange={(e) => props.onChangeForm(e, 'business')}
           isRequired={false}
           width='full'
           heigth='40px'
-          placeholder='Profession'
+          placeholder='I’m working here as'
           leftIcon={
             <svg
               width='20'
@@ -153,6 +155,7 @@ export default function FormBusiness(props: IProps) {
         <InputForm
           value={props.location}
           name='location'
+          label='My company located at'
           onChange={(e) => props.onChangeForm(e, 'business')}
           isRequired={false}
           width='full'
@@ -205,6 +208,7 @@ export default function FormBusiness(props: IProps) {
           }
         />
         <InputForm
+          label='I’ve been work in this field around'
           value={props.YearBusiness}
           name='YearBusiness'
           onChange={(e) => props.onChangeForm(e, 'business')}
@@ -280,6 +284,7 @@ export default function FormBusiness(props: IProps) {
           }
         />
         <InputForm
+          label='What about this company ?'
           value={props.companyAbout}
           name='companyAbout'
           onChange={(e) => props.onChangeForm(e, 'business')}

@@ -20,9 +20,10 @@ export default function MainSection() {
       flexDirection='column'
     >
       <Text
-        maxW='635px'
+        as='h2'
+        maxW='794px'
         fontWeight='700'
-        fontSize='40px'
+        fontSize='50px'
         lineHeight='150%'
         textAlign='center'
         color='#FFFFFF'
@@ -31,7 +32,7 @@ export default function MainSection() {
       </Text>
       <Text
         mt='24px'
-        fontWeight='600'
+        fontWeight='400'
         fontSize='20px'
         lineHeight='150%'
         textAlign='center'

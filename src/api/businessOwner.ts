@@ -12,14 +12,16 @@ export const ApiCreateBusinessOwner = async (data: {
     companyAbout: string;
   };
   personal: {
-    companyName: string;
-    fullname: string;
-    hobbies: string;
+    homeCity: string;
+    aboutMeDontKnow: string;
+    skillNotShow: string;
+    kids: string;
     interest: any[];
   };
   miscellaneous: {
     burningDesire: string;
-    noOneKnowAboutMe: string;
+    favoritesSuperhero: string;
+    representYou: string;
     keySuccess: string;
   };
   network: {

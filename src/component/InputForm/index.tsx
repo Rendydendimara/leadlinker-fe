@@ -9,8 +9,11 @@ export default function InputForm(props: IPropsInputForm) {
         isRequired={props.isRequired}
         marginBottom={props.isMb ? '16px' : 0}
       >
-        {props.label && <FormLabel color='#D8DDE3'>{props.label}</FormLabel>}
-
+        {props.label && (
+          <FormLabel mb='8px' color='#919CAC' fontSize='13px' fontWeight='500'>
+            {props.label}
+          </FormLabel>
+        )}
         <Textarea
           padding='10px 12px 10px 12px'
           width={props.width ?? '300px'}
@@ -44,7 +47,11 @@ export default function InputForm(props: IPropsInputForm) {
       isRequired={props.isRequired}
       marginBottom={props.isMb ? '16px' : 0}
     >
-      {props.label && <FormLabel color='#D8DDE3'>{props.label}</FormLabel>}
+      {props.label && (
+        <FormLabel mb='8px' color='#919CAC' fontSize='13px' fontWeight='500'>
+          {props.label}
+        </FormLabel>
+      )}
       <InputGroup
         width={props.width ?? '300px'}
         height={props.heigth ?? '44px'}
@@ -64,10 +71,10 @@ export default function InputForm(props: IPropsInputForm) {
           _focusVisible={{ borderStyle: 'none' }}
           borderRadius='4px'
           _placeholder={{
-            fontWeight: '400',
+            fontWeight: '500',
             fontSize: '13px',
             lineHeight: '150%',
-            color: '#919CAC',
+            color: '#555F6D',
           }}
           disabled={props.disabled}
           type={props.type ?? 'text'}

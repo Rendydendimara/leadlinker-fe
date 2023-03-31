@@ -6,7 +6,8 @@ interface IProps {
   nextSection: () => void;
   finishedSubmit: () => void;
   burningDesire: string;
-  noOneKnowAboutMe: string;
+  favoritesSuperhero: string;
+  representYou: string;
   keySuccess: string;
   onChangeForm: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -19,6 +20,7 @@ export default function FormMiscellaneous(props: IProps) {
     <>
       <VStack spacing='16px'>
         <InputForm
+          label='My burning desire'
           value={props.burningDesire}
           name='burningDesire'
           onChange={(e) => props.onChangeForm(e, 'miscellaneous')}
@@ -52,81 +54,7 @@ export default function FormMiscellaneous(props: IProps) {
           }
         />
         <InputForm
-          value={props.noOneKnowAboutMe}
-          name='noOneKnowAboutMe'
-          onChange={(e) => props.onChangeForm(e, 'miscellaneous')}
-          isRequired={false}
-          width='full'
-          heigth='40px'
-          placeholder='Something no one know about me'
-          leftIcon={
-            <svg
-              width='20'
-              height='20'
-              viewBox='0 0 20 20'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M3.33228 5.83317L3.33228 14.1665'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M0.833414 5.8335L19.1667 5.8335'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M3.33342 8.3335L16.6667 8.3335'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M11.6669 11.6665H16.6667'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M16.6667 5.83317L16.6667 14.1665'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M11.6663 5.83317L11.6663 14.1665'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M14.1663 8.3332L14.1663 9.1665'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M14.1663 11.6667L14.1663 12.5'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-            </svg>
-          }
-        />
-        <InputForm
+          label='My Key to success'
           value={props.keySuccess}
           name='keySuccess'
           onChange={(e) => props.onChangeForm(e, 'miscellaneous')}
@@ -180,6 +108,116 @@ export default function FormMiscellaneous(props: IProps) {
             </svg>
           }
         />
+        <InputForm
+          label='What is your most favorites superhero'
+          value={props.favoritesSuperhero}
+          name='favoritesSuperhero'
+          onChange={(e) => props.onChangeForm(e, 'miscellaneous')}
+          isRequired={false}
+          width='full'
+          heigth='40px'
+          placeholder='Favorites superhero'
+          leftIcon={
+            <svg
+              width='20'
+              height='20'
+              viewBox='0 0 20 20'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M10.0013 18.3332C14.6037 18.3332 18.3346 14.6022 18.3346 9.99984C18.3346 5.39746 14.6037 1.6665 10.0013 1.6665C5.39893 1.6665 1.66797 5.39746 1.66797 9.99984C1.66797 14.6022 5.39893 18.3332 10.0013 18.3332Z'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              />
+              <path
+                d='M2.08209 10.4165L6.66543 12.0832L5.83209 14.9998L6.66543 17.4998'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              />
+              <path
+                d='M14.1685 17.0832L13.7518 14.9998L11.6685 14.1665V11.2498L14.1685 10.4165L17.9185 10.8332'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              />
+              <path
+                d='M15.8339 4.58301L15.4172 5.83296L12.5007 6.24961V8.74951L14.5839 7.91621H16.2505L17.9171 8.74951'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              />
+              <path
+                d='M2.08203 8.74951L4.16536 7.08284L6.2487 6.66618L7.91536 4.16618L7.08203 2.49951'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              />
+            </svg>
+          }
+        />
+        <InputForm
+          label='Give us 1 name / word something that represent you'
+          value={props.representYou}
+          name='representYou'
+          onChange={(e) => props.onChangeForm(e, 'miscellaneous')}
+          isRequired={false}
+          width='full'
+          heigth='40px'
+          placeholder='Word something that represent you'
+          leftIcon={
+            <svg
+              width='20'
+              height='20'
+              viewBox='0 0 20 20'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M10.0013 18.3332C14.6037 18.3332 18.3346 14.6022 18.3346 9.99984C18.3346 5.39746 14.6037 1.6665 10.0013 1.6665C5.39893 1.6665 1.66797 5.39746 1.66797 9.99984C1.66797 14.6022 5.39893 18.3332 10.0013 18.3332Z'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='rond'
+                stroke-linejoin='round'
+              />
+              <path
+                d='M2.08209 10.4165L6.66543 12.0832L5.83209 14.9998L6.66543 17.4998'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              />
+              <path
+                d='M14.1685 17.0832L13.7518 14.9998L11.6685 14.1665V11.2498L14.1685 10.4165L17.9185 10.8332'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              />
+              <path
+                d='M15.8339 4.58301L15.4172 5.83296L12.5007 6.24961V8.74951L14.5839 7.91621H16.2505L17.9171 8.74951'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              />
+              <path
+                d='M2.08203 8.74951L4.16536 7.08284L6.2487 6.66618L7.91536 4.16618L7.08203 2.49951'
+                stroke='white'
+                stroke-width='1.24995'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              />
+            </svg>
+          }
+        />
       </VStack>
       <Button
         mt='48px'
@@ -195,7 +233,7 @@ export default function FormMiscellaneous(props: IProps) {
         color='#EFF3FA'
         onClick={props.finishedSubmit}
       >
-        Finish & Submit
+        Finish & Create Link
       </Button>
       <Button
         mt='20px'
