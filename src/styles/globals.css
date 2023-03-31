@@ -109,3 +109,7 @@ a {
 html {
   scroll-behavior: smooth;
 }
+
+.widthFull {
+  width: 100% !important;
+}

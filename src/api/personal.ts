@@ -12,6 +12,7 @@ export const ApiCreatePersonal = async (data: {
   goal: string;
   noTelfon: string;
   userId: string;
+  background: string;
 }) => {
   const response = await AxiosWithToken()
     .post(`${BACKEND_URL}/personal/create`, data)

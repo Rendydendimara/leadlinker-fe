@@ -7,7 +7,9 @@ import { useDisclosure } from '@chakra-ui/hooks';
 import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
 import { createStandaloneToast } from '@chakra-ui/toast';
 import { useEffect, useState } from 'react';
-
+// import 'react-colorful/dist/index.css';
+import { SketchPicker } from 'react-color';
+import { FormControl, FormLabel } from '@chakra-ui/form-control';
 interface IDataForm {
   id: string;
   nickname: string;
@@ -18,6 +20,7 @@ interface IDataForm {
   passion: string;
   goal: string;
   noTelfon: string;
+  background: string;
 }
 interface IProps {
   state?: 'create' | 'update';
@@ -37,6 +40,13 @@ export default function FormProfesional(props: IProps) {
     passion: '',
     goal: '',
     noTelfon: '',
+    background: '',
+  });
+  const [sketchPickerColor, setSketchPickerColor] = useState<any>({
+    r: '0',
+    g: '0',
+    b: '0',
+    a: '0',
   });
   const [loading, setLoading] = useState(false);
   const { toast } = createStandaloneToast();
@@ -106,6 +116,7 @@ export default function FormProfesional(props: IProps) {
         passion: props.dataForm.passion,
         goal: props.dataForm.goal,
         noTelfon: props.dataForm.noTelfon,
+        background: props.dataForm.background,
       });
       setStateForm('update');
     }
@@ -395,6 +406,17 @@ export default function FormProfesional(props: IProps) {
               </svg>
             }
           />
+          <FormControl w='full'>
+            <FormLabel color='#D8DDE3'>Background Color</FormLabel>
+            <SketchPicker
+              onChange={(color: any) => {
+                setSketchPickerColor(color.rgb);
+                setForm({ ...form, background: color.hex });
+              }}
+              className='widthFull'
+              color={sketchPickerColor}
+            />
+          </FormControl>
         </VStack>
         <Button
           mt='48px'

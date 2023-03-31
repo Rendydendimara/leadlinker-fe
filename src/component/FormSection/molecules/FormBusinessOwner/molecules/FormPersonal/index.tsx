@@ -1,13 +1,19 @@
 import InputForm from '@/component/InputForm';
 import { Button } from '@chakra-ui/button';
+import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Box, Flex, Text, VStack } from '@chakra-ui/layout';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+
+const animatedComponents = makeAnimated();
 
 interface IProps {
   nextSection: () => void;
   nickname: string;
   fullname: string;
   hobbies: string;
-  interest: string;
+  onChangeInterest: (data: any) => void;
+  interest: { value: string; label: string }[];
   onChangeForm: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     fieldName: string
@@ -147,60 +153,22 @@ export default function FormPersonal(props: IProps) {
             </svg>
           }
         />
-        <InputForm
-          value={props.interest}
-          name='interest'
-          onChange={(e) => props.onChangeForm(e, 'personal')}
-          isRequired={false}
-          width='full'
-          heigth='40px'
-          placeholder='Activities of Interest'
-          leftIcon={
-            <svg
-              width='20'
-              height='20'
-              viewBox='0 0 20 20'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M10.0013 18.3332C14.6037 18.3332 18.3346 14.6022 18.3346 9.99984C18.3346 5.39746 14.6037 1.6665 10.0013 1.6665C5.39893 1.6665 1.66797 5.39746 1.66797 9.99984C1.66797 14.6022 5.39893 18.3332 10.0013 18.3332Z'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M2.08209 10.4165L6.66543 12.0832L5.83209 14.9998L6.66543 17.4998'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M14.1685 17.0832L13.7518 14.9998L11.6685 14.1665V11.2498L14.1685 10.4165L17.9185 10.8332'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M15.8339 4.58301L15.4172 5.83296L12.5007 6.24961V8.74951L14.5839 7.91621H16.2505L17.9171 8.74951'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-              <path
-                d='M2.08203 8.74951L4.16536 7.08284L6.2487 6.66618L7.91536 4.16618L7.08203 2.49951'
-                stroke='white'
-                stroke-width='1.24995'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              />
-            </svg>
-          }
-        />
+        <FormControl w='full'>
+          <FormLabel color='#D8DDE3'>Interest</FormLabel>
+          <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            defaultValue={props.interest}
+            onChange={props.onChangeInterest}
+            isMulti
+            options={[
+              { value: 'coding', label: 'Coding' },
+              { value: 'traveling', label: 'Traveling' },
+              { value: 'design', label: 'Design' },
+              { value: 'product', label: 'Product' },
+            ]}
+          />
+        </FormControl>
       </VStack>
       <Button
         mt='48px'

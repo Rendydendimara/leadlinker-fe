@@ -12,6 +12,9 @@ import FormBusiness from './molecules/FormBusiness';
 import FormMiscellaneous from './molecules/FormMiscellaneous';
 import FormNetwork from './molecules/FormNetwork';
 import FormPersonal from './molecules/FormPersonal';
+import { SketchPicker } from 'react-color';
+import { FormControl, FormLabel } from '@chakra-ui/form-control';
+
 interface IStep {
   name: string;
   id: string;
@@ -65,7 +68,7 @@ export default function FormBusinessOwner(props: IProps) {
       nickname: '',
       fullname: '',
       hobbies: '',
-      interest: '',
+      interest: [],
     },
     miscellaneous: {
       burningDesire: '',
@@ -79,6 +82,13 @@ export default function FormBusinessOwner(props: IProps) {
       network: '',
       skill: '',
     },
+    background: '',
+  });
+  const [sketchPickerColor, setSketchPickerColor] = useState<any>({
+    r: '0',
+    g: '0',
+    b: '0',
+    a: '0',
   });
 
   const onChangeStep = (prevStep: string, nextStep: string) => {
@@ -183,8 +193,11 @@ export default function FormBusinessOwner(props: IProps) {
     onClose();
     if (userNew) {
       setLoading(true);
+      let formData = form;
+      const interest = form.personal.interest.map((inte: any) => inte.value);
+      formData.personal.interest = interest;
       const res = await ApiCreateBusinessOwner({
-        ...form,
+        ...formData,
         userId: userNew._id,
       });
       if (res.status === 200) {
@@ -211,6 +224,16 @@ export default function FormBusinessOwner(props: IProps) {
     }
   };
 
+  const onChangeInterest = (data: any) => {
+    setForm({
+      ...form,
+      personal: {
+        ...form.personal,
+        interest: data,
+      },
+    });
+  };
+
   const renderForm = () => {
     switch (currentStep) {
       case 'business':
@@ -229,6 +252,7 @@ export default function FormBusinessOwner(props: IProps) {
       case 'personal':
         return (
           <FormPersonal
+            onChangeInterest={onChangeInterest}
             nickname={form.personal.nickname}
             fullname={form.personal.fullname}
             hobbies={form.personal.hobbies}
@@ -344,6 +368,17 @@ export default function FormBusinessOwner(props: IProps) {
           backdropFilter='blur(2px)'
           borderRadius='12px'
         >
+          <FormControl w='full' mb='4'>
+            <FormLabel color='#D8DDE3'>Background Color</FormLabel>
+            <SketchPicker
+              onChange={(color: any) => {
+                setSketchPickerColor(color.rgb);
+                setForm({ ...form, background: color.hex });
+              }}
+              className='widthFull'
+              color={sketchPickerColor}
+            />
+          </FormControl>
           {renderForm()}
         </Box>
       </Flex>

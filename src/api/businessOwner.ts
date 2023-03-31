@@ -15,7 +15,7 @@ export const ApiCreateBusinessOwner = async (data: {
     companyName: string;
     fullname: string;
     hobbies: string;
-    interest: string;
+    interest: any[];
   };
   miscellaneous: {
     burningDesire: string;
@@ -29,6 +29,7 @@ export const ApiCreateBusinessOwner = async (data: {
     network: string;
     skill: string;
   };
+  background: string;
   userId: string;
 }) => {
   const response = await AxiosWithToken()
