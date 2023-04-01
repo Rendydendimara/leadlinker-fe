@@ -225,7 +225,7 @@ export default function Login() {
               >
                 Login
               </Button>
-              <Link style={{ width: '100%' }} href='/#formsection'>
+              <Link style={{ width: '100%' }} href='/?type="scroll"'>
                 <Button
                   _hover={{}}
                   _active={{}}

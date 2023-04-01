@@ -887,7 +887,7 @@ export default function FormProfesional(props: IProps) {
               </svg>
             }
           />
-          <FormControl w='full'>
+          {/* <FormControl w='full'>
             <FormLabel color='#D8DDE3'>Background Color</FormLabel>
             <SketchPicker
               onChange={(color: any) => {
@@ -897,7 +897,7 @@ export default function FormProfesional(props: IProps) {
               className='widthFull'
               color={sketchPickerColor}
             />
-          </FormControl>
+          </FormControl> */}
         </VStack>
         <Button
           mt='48px'

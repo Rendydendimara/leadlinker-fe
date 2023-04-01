@@ -134,7 +134,7 @@ export default function FormBusinessOwner(props: IProps) {
           form.personal.homeCity &&
           form.personal.aboutMeDontKnow &&
           form.personal.skillNotShow &&
-          form.perosnal.kids &&
+          form.personal.kids &&
           form.personal.interest
         ) {
           return true;
@@ -383,7 +383,7 @@ export default function FormBusinessOwner(props: IProps) {
           backdropFilter='blur(2px)'
           borderRadius='12px'
         >
-          <FormControl w='full' mb='4'>
+          {/* <FormControl w='full' mb='4'>
             <FormLabel color='#D8DDE3'>Background Color</FormLabel>
             <SketchPicker
               onChange={(color: any) => {
@@ -393,7 +393,7 @@ export default function FormBusinessOwner(props: IProps) {
               className='widthFull'
               color={sketchPickerColor}
             />
-          </FormControl>
+          </FormControl> */}
           {renderForm()}
         </Box>
       </Flex>
