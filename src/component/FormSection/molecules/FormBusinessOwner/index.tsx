@@ -15,6 +15,7 @@ import FormPersonal from './molecules/FormPersonal';
 import { SketchPicker } from 'react-color';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { OPTIONS_INTEREST } from '@/constant';
+import Router from 'next/router';
 
 interface IStep {
   name: string;
@@ -214,7 +215,8 @@ export default function FormBusinessOwner(props: IProps) {
           duration: 5000,
           isClosable: true,
         });
-        setPageView('dashboard');
+        Router.push('/card');
+        // setPageView('dashboard');
       } else {
         toast({
           position: 'bottom',

@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 // import 'react-colorful/dist/index.css';
 import { SketchPicker } from 'react-color';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
+import Router from 'next/router';
 interface IDataForm {
   id: string;
   nickname: string;
@@ -102,7 +103,8 @@ export default function FormProfesional(props: IProps) {
           duration: 5000,
           isClosable: true,
         });
-        setPageView('dashboard');
+        // setPageView('dashboard');
+        Router.push('/card');
       } else {
         toast({
           position: 'bottom',
